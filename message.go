@@ -10,21 +10,30 @@ const (
 	msgPrefixFrench  = "Bonjour, "
 )
 
-// const (
-// 	english = "English"
-// 	spanish = "Spanish"
-// 	french  = "French"
-// )
+const (
+	spanish = "Spanish"
+	french  = "French"
+	english = "English"
+)
 
 func Message(name, lang string) string {
 	if name == "" {
 		name = "World"
 	}
 
-	if lang == "Spanish" {
-		return msgPrefixSpanish + name
+	return switchPrefix(lang) + name
+}
+
+func switchPrefix(prefix string) string {
+	switch prefix {
+	case spanish:
+		prefix = msgPrefixSpanish
+	case french:
+		prefix = msgPrefixFrench
+	default:
+		prefix = msgPrefixEnglish
 	}
-	return msgPrefixEnglish + name
+	return prefix
 }
 
 func main() {
