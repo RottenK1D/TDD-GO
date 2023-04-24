@@ -1,9 +1,16 @@
 package iteration
 
-func Repeat(s string) string {
-	str := ""
-	for l := 0; l < 5; l++ {
-		str += s
+const repeatCount = 5
+
+func Repeat(c string, n int) string {
+	var s string
+
+	if n == 0 {
+		n = repeatCount
 	}
-	return str
+
+	for l := 0; l < n; l++ {
+		s += c
+	}
+	return s
 }
