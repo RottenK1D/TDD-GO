@@ -2,11 +2,15 @@ package main
 
 import "fmt"
 
+const msgPrefix = "Hi, "
+
 func Message(name string) string {
-	return "Hi, " + name
+	if name == "" {
+		name = "World"
+	}
+	return msgPrefix + name
 }
 
 func main() {
 	fmt.Println(Message("DUDE"))
-
 }
