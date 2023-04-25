@@ -11,17 +11,19 @@ func Sum(arr []int) int {
 func SumAll(slices ...[]int) []int {
 	var sumSlice []int
 
-	for i, x := range slices[0] {
-		for _, slice := range slices[1:] {
-			if i >= len(slice) {
-				break
-			}
-
-			x += slice[i]
-		}
-
-		sumSlice = append(sumSlice, x)
+	for _, number := range slices {
+		sumSlice = append(sumSlice, Sum(number))
 	}
 
+	return sumSlice
+}
+
+func SumAllTails(slices ...[]int) []int {
+	var sumSlice []int
+
+	for _, number := range slices {
+		tail := number[1:]
+		sumSlice = append(sumSlice, Sum(tail))
+	}
 	return sumSlice
 }
