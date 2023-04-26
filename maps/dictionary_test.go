@@ -3,11 +3,24 @@ package maps
 import "testing"
 
 func TestSearch(t *testing.T) {
-	dictionary := map[string]string{"test": "just test"}
-	got := Search(dictionary, "test")
-	want := "just test"
+	dictionary := Dictionary{"test": "just test"}
 
-	assertString(t, got, want)
+	t.Run("known value", func(t *testing.T) {
+		got, _ := dictionary.Search("test")
+		want := "just test"
+
+		assertString(t, got, want)
+	})
+
+	t.Run("unknown value", func(t *testing.T) {
+		_, err := dictionary.Search("unknown")
+		want := "missing value"
+
+		if err == nil {
+			t.Fatal("expecting error")
+		}
+		assertString(t, err.Error(), want)
+	})
 }
 
 func assertString(t testing.TB, got, want string) {
