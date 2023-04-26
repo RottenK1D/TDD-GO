@@ -5,6 +5,8 @@ import (
 	"fmt"
 )
 
+var ErrInsufficientFunds = errors.New("cannot withdraw: insufficient funds")
+
 type Bitcoin int
 
 type Depositer interface {
@@ -29,7 +31,7 @@ func (w *Wallet) Deposit(amount Bitcoin) {
 
 func (w *Wallet) Withdraw(amount Bitcoin) error {
 	if w.balance < amount {
-		return errors.New("cannot withdraw: not enough funds")
+		return ErrInsufficientFunds
 	}
 	w.balance -= amount
 	return nil
