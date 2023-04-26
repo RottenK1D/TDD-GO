@@ -1,6 +1,7 @@
 package pointers
 
 import (
+	"errors"
 	"fmt"
 )
 
@@ -11,7 +12,7 @@ type Depositer interface {
 }
 
 type Withdrawal interface {
-	Withdraw(Bitcoin)
+	Withdraw(Bitcoin) error
 }
 
 type Balancer interface {
@@ -26,8 +27,12 @@ func (w *Wallet) Deposit(amount Bitcoin) {
 	w.balance += amount
 }
 
-func (w *Wallet) Withdraw(amount Bitcoin) {
+func (w *Wallet) Withdraw(amount Bitcoin) error {
+	if w.balance < amount {
+		return errors.New("cannot withdraw: not enough funds")
+	}
 	w.balance -= amount
+	return nil
 }
 
 func (w *Wallet) Balance() Bitcoin {
