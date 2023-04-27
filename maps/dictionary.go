@@ -1,13 +1,11 @@
 package maps
 
-import (
-	"errors"
+const (
+	ErrNotFound   = DictionaryErr("could not find value")
+	ErrWordExists = DictionaryErr("word already exists in the dictionary")
 )
 
-var (
-	ErrNotFound   = errors.New("could not find value")
-	ErrWordExists = errors.New("word already exists in the dictionary")
-)
+type DictionaryErr string
 
 type Dictionary map[string]string
 
@@ -17,6 +15,10 @@ type Searcher interface {
 
 type Adder interface {
 	Add(string, string) error
+}
+
+func (e DictionaryErr) Error() string {
+	return string(e)
 }
 
 func (d Dictionary) Search(word string) (string, error) {
